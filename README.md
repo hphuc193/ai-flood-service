@@ -1,95 +1,95 @@
-# 🧠 Flood Warning System - AI Prediction Microservice
+# 🧠 Hệ thống Cảnh báo ngập lụt - Microservice Trí tuệ nhân tạo (AI)
 
-This repository contains the Artificial Intelligence (AI) Microservice for the Graduation Thesis: **"Application for sharing and early flood warning support using AI"**.
+Đây là kho lưu trữ chứa mã nguồn của module Trí tuệ nhân tạo (AI Microservice) thuộc dự án Khóa luận tốt nghiệp: **"Ứng dụng hỗ trợ chia sẻ và cảnh báo ngập lụt sớm tích hợp AI"**.
 
-Operating as an independent microservice, this application receives real-time meteorological data (rainfall, water level) from the core Node.js backend, processes it through an Ensemble Machine Learning pipeline, and generates a 24-hour flood risk forecast.
+Hoạt động như một vi dịch vụ (microservice) hoàn toàn độc lập, ứng dụng này làm nhiệm vụ tiếp nhận dữ liệu khí tượng theo thời gian thực (lượng mưa, mực nước) từ server Node.js trung tâm, xử lý chúng qua một chuỗi các thuật toán Học máy tổ hợp (Ensemble Machine Learning), và trả về dự báo rủi ro ngập lụt trong 24 giờ tới.
 
-## 🚀 Tech Stack & Libraries
-- **Framework:** FastAPI (High-performance, asynchronous Python web framework).
-- **Machine Learning:** Scikit-learn (Random Forest Regressor), XGBoost.
-- **Data Processing:** Pandas, NumPy.
-- **Database ORM:** SQLAlchemy (Connecting to PostgreSQL/Supabase).
-- **Server:** Uvicorn (ASGI web server implementation for Python).
-- **API Documentation:** Auto-generated Swagger UI.
+## 🚀 Công nghệ & Thư viện sử dụng
+- **Framework:** FastAPI (Web framework Python hiệu năng cao, xử lý bất đồng bộ).
+- **Học máy (Machine Learning):** Scikit-learn (Mô hình Random Forest), XGBoost.
+- **Xử lý dữ liệu:** Pandas, NumPy.
+- **Cơ sở dữ liệu (ORM):** SQLAlchemy (Kết nối trực tiếp vào PostgreSQL/Supabase).
+- **Web Server:** Uvicorn (Chuẩn ASGI cho Python).
+- **Tài liệu API:** Tự động khởi tạo bằng Swagger UI.
 
-## 🧠 AI Model Architecture (Ensemble Learning)
-To ensure high accuracy and reliability in flood risk prediction, this service implements an **Ensemble Learning** approach:
-1. **Random Forest:** Captures complex, non-linear relationships in hydrological data.
-2. **XGBoost (Extreme Gradient Boosting):** Optimizes performance and reduces bias through sequential tree building.
-3. **Ensemble Mechanism:** The system calculates the arithmetic mean of the predictions from both models to output a final stable `Risk Score` (0 - 100%).
+## 🧠 Kiến trúc Mô hình AI (Học tổ hợp - Ensemble Learning)
+Để đảm bảo độ chính xác và độ tin cậy cao nhất cho dự báo ngập lụt, dịch vụ này áp dụng phương pháp **Học tổ hợp (Ensemble Learning)**:
+1. **Random Forest:** Nắm bắt các mối quan hệ phức tạp, phi tuyến tính của dữ liệu thủy văn (lượng mưa, mực nước, thời gian).
+2. **XGBoost (Extreme Gradient Boosting):** Tối ưu hóa hiệu suất, giảm thiểu sai số thông qua việc xây dựng cây quyết định tuần tự.
+3. **Cơ chế kết hợp:** Hệ thống tính toán trung bình cộng kết quả dự đoán của cả hai mô hình để cho ra một `Risk Score` (Điểm rủi ro từ 0 - 100%) ổn định và chính xác nhất.
 
-### Risk Level Categorization:
-- 🟢 **LOW (0-25%):** Normal situation, no special action required.
-- 🟡 **MEDIUM (25-50%):** Needs monitoring, prepare response plans.
-- 🟠 **HIGH (50-75%):** High risk, relocate assets, prepare for evacuation.
-- 🔴 **EMERGENCY (75-100%):** Imminent flooding, evacuate immediately.
+### Thang đo Mức độ rủi ro:
+- 🟢 **THẤP (0-25%):** Tình hình bình thường, không cần hành động đặc biệt.
+- 🟡 **TRUNG BÌNH (25-50%):** Cần theo dõi sát sao, chuẩn bị sẵn sàng kế hoạch ứng phó.
+- 🟠 **CAO (50-75%):** Nguy cơ cao, cần di dời tài sản lên cao, chuẩn bị di tản.
+- 🔴 **KHẨN CẤP (75-100%):** Ngập lụt sắp/đang xảy ra, cần di tản ngay lập tức theo hướng dẫn.
 
-## 📁 Folder Structure
+## 📁 Cấu trúc thư mục
 ```text
 ai-flood-service/
-├── main.py               # FastAPI application entry point & API endpoints
-├── database.py           # SQLAlchemy setup and database schema definition
-├── ai_model.py           # Core ML logic, model loading, and ensemble prediction
-├── train_models.py       # Script to generate synthetic data and train .pkl models
-├── requirements.txt      # Python dependencies list
-├── random_forest.pkl     # Pre-trained Random Forest model (Auto-generated)
-├── xgboost.pkl           # Pre-trained XGBoost model (Auto-generated)
-└── .env                  # Environment variables (Ignored in Git)
+├── main.py               # File chạy chính của FastAPI & định nghĩa các API
+├── database.py           # Cấu hình SQLAlchemy và kết nối Database
+├── ai_model.py           # Chứa logic cốt lõi: Load mô hình và chạy AI dự đoán
+├── train_models.py       # Script sinh dữ liệu giả lập và huấn luyện mô hình
+├── requirements.txt      # Danh sách các thư viện Python cần thiết
+├── random_forest.pkl     # File mô hình Random Forest đã được huấn luyện
+├── xgboost.pkl           # File mô hình XGBoost đã được huấn luyện
+└── .env                  # Biến môi trường hệ thống (Không đẩy lên Git)
 ```
 
-## ⚙️ Local Development Setup
+## ⚙️ Hướng dẫn cài đặt (Môi trường Local)
 
-### 1. Prerequisites
-- Python 3.9+
-- PostgreSQL Database (Matched with the Node.js Core Backend)
+### 1. Yêu cầu hệ thống
+- Python 3.9 trở lên
+- Cơ sở dữ liệu PostgreSQL (Chung với Database của server Node.js)
 
-### 2. Environment Setup
-Clone the repository and set up the virtual environment:
+### 2. Thiết lập Môi trường ảo (Virtual Environment)
+Clone repository về máy và tạo môi trường ảo:
 ```bash
 git clone <your-repo-url>
 cd ai-flood-service
 
-# Create and activate virtual environment
+# Tạo và kích hoạt môi trường ảo
 python -m venv venv
-# On Windows: venv\Scripts\activate
-# On macOS/Linux: source venv/bin/activate
+# Trên Windows: venv\Scripts\activate
+# Trên macOS/Linux: source venv/bin/activate
 ```
 
-### 3. Install Dependencies
+### 3. Cài đặt thư viện
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Environment Variables (.env)
-Create a `.env` file in the root directory and add your PostgreSQL connection string:
+### 4. Biến môi trường (.env)
+Tạo file `.env` ở thư mục gốc và dán chuỗi kết nối cơ sở dữ liệu của bạn vào:
 ```env
 DATABASE_URL="postgresql://[user]:[password]@[host]:6543/postgres"
 ```
 
-### 5. Train the Models (Initial Setup)
-Before running the server, you must train the initial models to generate the `.pkl` files:
+### 5. Huấn luyện Mô hình (Thiết lập ban đầu)
+Trước khi chạy server, bạn bắt buộc phải chạy script huấn luyện để hệ thống sinh ra 2 file ".pkl":
 ```bash
 python train_models.py
 ```
-*Note: This script generates simulated hydrological data for prototype testing. In production, real datasets should be used.*
+*Lưu ý: Đoạn script này hiện đang sinh ra dữ liệu thủy văn giả lập để chứng minh tính khả thi của hệ thống. Trong thực tế, cần thay thế bằng bộ dữ liệu thật của khu vực cần dự báo.*
 
-### 6. Run the Server
-Start the FastAPI application using Uvicorn:
+### 6. Khởi chạy Server
+Bật ứng dụng FastAPI bằng Uvicorn:
 ```bash
 uvicorn main:app --reload --port 8000
 ```
-Interactive API documentation (Swagger UI) will be available at: 👉 `http://localhost:8000/docs`
+Giao diện tài liệu API tương tác trực quan (Swagger UI) sẽ có sẵn tại: 👉 `http://localhost:8000/docs`
 
-## 🔗 API Endpoints
-- `POST /api/ai/predict`: Receives current `rainfall` and `water_level`, calculates the 24-hour forecast, and saves 24 records into the `ai_flood_predictions` table.
-- `GET /api/ai/forecast-chart/{location_id}`: Retrieves the 24-hour timeline and chart data for mobile visualization.
+## 🔗 Các API Endpoints chính
+- `POST /api/ai/predict`: Tiếp nhận `lượng mưa` và `mực nước` hiện tại, AI sẽ tính toán và tự động ghi 24 mốc thời gian dự báo vào bảng `ai_flood_predictions` trong DB.
+- `GET /api/ai/forecast-chart/{location_id}`: API dự phòng để truy xuất dữ liệu biểu đồ 24h.
 
-## ☁️ Deployment
-This microservice is optimized for deployment on **Render** (Web Service).
-- **Environment:** Python 3
-- **Build Command:** `pip install -r requirements.txt`
-- **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
-*(Ensure `DATABASE_URL` is configured in the Render Environment Variables settings).*
+## ☁️ Triển khai (Deployment)
+Microservice này được tối ưu sẵn để đưa lên nền tảng **Render** dưới dạng Web Service.
+- **Môi trường:** Python 3
+- **Lệnh Build:** `pip install -r requirements.txt`
+- **Lệnh Start:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+*(Cần đảm bảo biến `DATABASE_URL` đã được thiết lập trong phần Environment Variables của Render).*
 
-## 🎓 Acknowledgments
-This Microservice is a core technical component of a Software Engineering Graduation Thesis at the University of Management and Technology in Ho Chi Minh City (UMT), under the dedicated supervision of **MSc. Nguyen Le Hoang Dung**.
+## 🎓 Lời cảm ơn
+Dự án Microservice AI này là một cấu phần kỹ thuật trọng tâm thuộc Khóa luận tốt nghiệp chuyên ngành Kỹ thuật phần mềm tại Trường Đại học Quản lý và Công nghệ TP.HCM (UMT), dưới sự hướng dẫn tận tình của **Ths. Nguyễn Lê Hoàng Dũng**.
