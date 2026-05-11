@@ -39,8 +39,6 @@ class EnsembleFloodModel:
         for hour in range(1, 25):
             target_time = now + datetime.timedelta(hours=hour)
             
-            # Chuẩn bị dữ liệu đầu vào cho model y hệt như lúc Train
-            # Lưu ý: DataFrame phải có đúng tên cột 'rainfall', 'water_level', 'target_hour'
             input_df = pd.DataFrame([{
                 'rainfall': current_rainfall,
                 'water_level': current_water_level,

@@ -15,7 +15,7 @@ DATABASE_URL = os.getenv("DATABASE_URL")
 if not DATABASE_URL:
     raise ValueError("Lỗi: Không tìm thấy DATABASE_URL trong file .env hoặc biến môi trường!")
 
-# 3. Khởi tạo kết nối như bình thường
+# 3. Khởi tạo kết nối
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
